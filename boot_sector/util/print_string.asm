@@ -21,7 +21,7 @@ _print_string_loop:
 	int 0x10
 	
 	; point to the next character in input string
-	add bx, 1
+	inc bx
 	
 	jmp _print_string_loop
 

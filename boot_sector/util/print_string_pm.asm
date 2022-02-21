@@ -24,7 +24,7 @@ _print_string_loop_pm:
 	mov [edx], ax
 	
 	; point to the next character in input string
-	add ebx, 1
+	inc ebx
 	; move to next index in vid-mem
 	add edx, 2
 	
