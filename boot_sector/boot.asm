@@ -11,7 +11,7 @@ mov bx, MSG_REAL_MODE
 call print_string
 
 ; this never returns
-call switch_to_protected_mode
+jmp switch_to_protected_mode
 
 ; we should never reach this
 jmp $
