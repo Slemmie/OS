@@ -33,8 +33,6 @@ C_HEDAER_FILES = $(wildcard $(ROOT_PATH)/kernel/*.h $(ROOT_PATH)/drivers/*.h)
 # C object files
 C_OBJ_FILES = ${C_SOURCE_FILES:.c=.o}
 
-#somehing.c -> (path)/somehing.o
-
 # kernel binary file
 $(BIN_PATH)/kernel.bin: $(BIN_PATH)/kernel_entry.o ${C_OBJ_FILES}
 	$(prep)
