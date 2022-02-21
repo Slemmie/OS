@@ -27,9 +27,9 @@ os-image: $(BIN_PATH)/boot.bin $(BIN_PATH)/kernel.bin
 	cat $^ > os-image
 
 # C source files - kernel stuff + driver stuff
-C_SOURCE_FILES = $(wildcard $(ROOT_PATH)/kernel/*.c $(ROOT_PATH)/drivers/*.c)
+C_SOURCE_FILES = $(wildcard $(ROOT_PATH)/kernel/*.c $(ROOT_PATH)/kernel/util/*.c $(ROOT_PATH)/drivers/*.c)
 # C header files - kernel stuff + dirver suff
-C_HEDAER_FILES = $(wildcard $(ROOT_PATH)/kernel/*.h $(ROOT_PATH)/drivers/*.h)
+C_HEDAER_FILES = $(wildcard $(ROOT_PATH)/kernel/*.h $(ROOT_PATH)/kernel/util/*.h $(ROOT_PATH)/drivers/*.h)
 # C object files
 C_OBJ_FILES = ${C_SOURCE_FILES:.c=.o}
 
@@ -57,4 +57,4 @@ $(BIN_PATH)/boot.bin: $(ROOT_PATH)/boot_sector/boot.asm
 clean:
 	rm -rf ./bin
 	rm -rf *.bin *.o
-	rm -rf kernel/*.o boot_sector/*.bin drivers/*.o
+	rm -rf kernel/*.o kernel/util/*.o boot_sector/*.bin drivers/*.o
