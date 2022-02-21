@@ -36,4 +36,5 @@ _init_protected_mode:
 	mov esp, ebp
 	
 	; finally, properly begin protected mode
-	call start_protected_mode
+	; never return from here
+	jmp start_protected_mode
