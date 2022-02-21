@@ -19,4 +19,4 @@ to run the system, simply (using qemu):
 	$ apt install make
 	$ apt install qemu-system-x86
 
-These packages are common, and should exist in other mainstream package managers (like PacMan, etc.)
+These packages are common, and should also exist in other mainstream package managers (like PacMan, etc.)
