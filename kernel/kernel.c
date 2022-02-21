@@ -1,14 +1,12 @@
 // kernel written in C
 
-void pr(int id, short value) {
-	((char*)0x000b8002)[id * 2] = value;
-}
+#include "vid_mem.h"
 
 void main() {
 	// sample program
 	// write a character to vid-mem
 	
 	long int place = 0;
-	pr(place, 'H');
+	vidmem_putchar(1, 2, 'H', 0);
 	
 }
