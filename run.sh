@@ -1,6 +1,6 @@
 # emulate OS using qemu
 # $ apt install qemu-system-x86
 
-qemu-system-x86_64 os-image
+qemu-system-x86_64 ./bin/os-image
 
 echo "DONE"
