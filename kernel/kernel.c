@@ -8,8 +8,6 @@ void main() {
 	
 	vidmem_clear_screen();
 	vidmem_set_cursor(0, 0);
-	for (int i = 0; i < 80 * 25 + 5; i++) {
-		vidmem_putchar('0' + (i % 10), 0);
-	}
+	vidmem_puts("Hello world!\n", 0);
 	
 }

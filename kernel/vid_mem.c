@@ -44,6 +44,20 @@ void vidmem_set_cursor(int row, int col) {
     port_byte_out(REGISTER_SCREEN_DATA, offset);
 }
 
+void vidmem_scroll_once() {
+	for (int i = 1; i < ROW_CNT; i++) {
+		for (int j = 0; j < COL_CNT; j++) {
+			((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(i - 1, j)] =
+			((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(i, j)];
+			((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(i - 1, j) + 1] =
+			((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(i, j) + 1];
+		}
+	}
+	for (int j = 0; j < COL_CNT; j++) {
+		((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(ROW_CNT - 1, j)] = '\0';
+	}
+}
+
 void vidmem_advance_cursor(int* row, int* col) {
 	(*col)++;
 	if (*col >= COL_CNT) {
@@ -51,19 +65,8 @@ void vidmem_advance_cursor(int* row, int* col) {
 		(*row)++;
 	}
 	if (*row >= ROW_CNT) {
-		(*row)--;
-		// scroll once
-		for (int i = 1; i < ROW_CNT; i++) {
-			for (int j = 0; j < COL_CNT; j++) {
-				((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(i - 1, j)] =
-				((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(i, j)];
-				((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(i - 1, j) + 1] =
-				((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(i, j) + 1];
-			}
-		}
-		for (int j = 0; j < COL_CNT; j++) {
-			((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(ROW_CNT - 1, j)] = '\0';
-		}
+		*row = ROW_CNT - 1;;
+		vidmem_scroll_once();
 	}
 	vidmem_set_cursor(*row, *col);
 }
@@ -71,6 +74,16 @@ void vidmem_advance_cursor(int* row, int* col) {
 void vidmem_putchar_exact(int row, int col, char value, char color) {
 	if (color == 0) {
 		color = 0x0f;
+	}
+	if (value == '\n') {
+		col = 0;
+		row++;
+		if (row >= ROW_CNT) {
+			row = ROW_CNT - 1;
+			vidmem_scroll_once();
+		}
+		vidmem_set_cursor(row, col);
+		return;
 	}
 	((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(row, col)] = value;
 	((char*)VIDEO_MEM_ADDRESS)[vidmem_get_offset(row, col) + 1] = color;
