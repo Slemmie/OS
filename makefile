@@ -36,16 +36,16 @@ C_OBJ_FILES = ${C_SOURCE_FILES:.c=.o}
 # kernel binary file
 $(BIN_PATH)/kernel.bin: $(BIN_PATH)/kernel_entry.o ${C_OBJ_FILES}
 	$(prep)
-	ld -Ttext 0x1000 --oformat binary $^ -o $@
+	ld -m elf_i386 -Ttext 0x1000 --oformat binary $^ -o $@
 
 # C object files
 %.o: %.c ${C_HEADER_FILES}
-	gcc -ffreestanding -c $< -o $@
+	gcc -m32 -fno-pie -ffreestanding -c $< -o $@
 
 # kernel entry object file
 $(BIN_PATH)/kernel_entry.o: $(ROOT_PATH)/boot_sector/kernel_entry.asm
 	$(prep)
-	nasm -f elf64 $^ -o $@
+	nasm -f elf32 $^ -o $@
 
 # boot sector binary
 $(BIN_PATH)/boot.bin: $(ROOT_PATH)/boot_sector/boot.asm

@@ -6,7 +6,6 @@ void main() {
 	// sample program
 	// write a character to vid-mem
 	
-	long int place = 0;
-	vidmem_putchar(1, 2, 'H', 0);
+	vidmem_puts(1, 2, "Hello world!", 0);
 	
 }
