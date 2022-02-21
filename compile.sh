@@ -9,5 +9,9 @@ cd ..
 
 # compile boot sector
 cd boot_sector && nasm -f bin boot.asm -o ../boot.bin
+cd ..
+
+# make image
+cat boot.bin kernel.bin > os-image
 
 echo "DONE"
