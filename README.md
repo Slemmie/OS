@@ -2,15 +2,21 @@
 Miserably failing at creating an operating system!
 
 # Usage
-to run the system, simply (using qemu):
+To run the system, simply (using qemu):
 
 	$ make run
+
+To make the os-image without running directly in qemu (can be used in other emulators/installed onto somewhere):
+
+	$ make
+
+Simply compiling does not require qemu as a dependency.
 
 # Dependencies (see Installation...)
 - nasm (assembler)
 - gcc (C compiler)
 - make (build system)
-- qemu-system-x86 (machine emulator)
+- qemu-system-x86 (machine emulator) (is not required for raw building of the os-image)
 
 #### Installation (probably requires sudo privileges):
 
@@ -19,4 +25,4 @@ to run the system, simply (using qemu):
 	$ apt install make
 	$ apt install qemu-system-x86
 
-These packages are common, and should also exist in other mainstream package managers (like PacMan, etc.)
+These packages are common, and should also exist in other mainstream package managers (like PacMan, etc.).
