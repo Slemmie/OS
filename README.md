@@ -1,21 +1,22 @@
 # OS
 Miserably failing at creating an operating system!
+
 # Usage
-make cimpler script and runner script executable:
+to run the system, simply (using qemu):
 
-	$ chmod +x compile.sh
-	$ chmod +x run.sh
+	$ make run
 
-to compile, then run the system (using qemu):
-
-	$ ./compile.sh
-	$ ./run.sh
-
-# Dependencies
+# Dependencies (see Installation...)
 - nasm (assembler)
-- qemu (machine emulator)
+- gcc (C compiler)
+- make (build system)
+- qemu-system-x86 (machine emulator)
 
 #### Installation (probably requires sudo privileges):
 
 	$ apt install nasm
+	$ apt install gcc
+	$ apt install make
 	$ apt install qemu-system-x86
+
+These packages are common, and should exist in other mainstream package managers (like PacMan, etc.)
