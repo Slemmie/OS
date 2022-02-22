@@ -17,13 +17,18 @@ typedef enum {
 
 typedef struct {
 	
+	// size excluding header block
 	unsigned int size;
 	
+	// occupied?, available?
+	// has '_MBH_State' value
 	unsigned char state;
 	
 } _MBH;
 
-#define _MBH_SIZE sizeof(_MBH)
+// size of memory block header - add 4 null-bytes of padding
+// currently 8 bytes
+#define _MBH_SIZE (sizeof(_MBH) + 3)
 
 #define _MBH_EMPTY ((_MBH) { 0, _MBH_STATE_NONE });
 
@@ -37,3 +42,10 @@ void memset(void* ptr, unsigned char value, unsigned int size);
 // size is number of BYTES to copy
 // copy from src to dest
 void memcpy(void* dest, void* src, unsigned int size);
+
+
+// 4 KB block size
+#define _PM_BLOCK_SIZE (4u * 1024u)
+
+// initialize physical memory starting at pm_begin
+void init_paging();

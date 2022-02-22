@@ -5,13 +5,13 @@
 unsigned char port_byte_in(IO_port port) {
 	unsigned char result ;
 	__asm__ ("in %%dx, %%al" : "=a" (result) : "d" (port));
-	return result ;
+	return result;
 }
 
 unsigned short port_word_in(IO_port port) {
 	unsigned short result ;
 	__asm__ ("in %%dx, %%ax" : "=a" (result) : "d" (port));
-	return result ;
+	return result;
 }
 
 void port_byte_out(IO_port port, unsigned char data) {
