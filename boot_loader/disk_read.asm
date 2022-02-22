@@ -4,10 +4,10 @@ ReadDisk:
 	mov ah, 0x02
 	mov bx, PROGRAM_SPACE
 	mov al, 4
-	move dl, [BOOT_DISK]
-	mov ch 0x00
-	mov dh 0x00
-	mov cl 0x02
+	mov dl, [BOOT_DISK]
+	mov ch, 0x00
+	mov dh, 0x00
+	mov cl, 0x02
 
 	int 0x13
 
@@ -23,6 +23,6 @@ DiskReadErrorString:
 
 DiskReadFailed:
 	mov bx, DiskReadErrorString
-	call printString
+	call PrintString
 
 	jmp $

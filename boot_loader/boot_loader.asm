@@ -7,10 +7,6 @@ mov sp, bp
 
 call ReadDisk
 
-mov ah, 0x0e
-mov al, [PROGRAM_SPACE]
-int 0x10
-
 jmp $
 
 %include "./util/print.asm"
