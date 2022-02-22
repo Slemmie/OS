@@ -32,3 +32,8 @@ typedef struct {
 // value parameter is an unsigned byte, cast to this when using memset
 // memory is set per-byte, so values cannot exceed 255
 void memset(void* ptr, unsigned char value, unsigned int size);
+
+// memcpy, copy values in one memory block to another
+// size is number of BYTES to copy
+// copy from src to dest
+void memcpy(void* dest, void* src, unsigned int size);
