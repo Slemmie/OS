@@ -32,6 +32,7 @@ jmp $
 %include "GDT.asm"
 %include "switch_to_pm.asm"
 %include "load_kernel.asm"
+%include "../kernel/IDT.asm"
 
 [bits 32]
 
