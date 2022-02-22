@@ -16,10 +16,3 @@ PrintString:
 		pop bx
 		pop ax
 		ret
-
-TestString:
-	db "This is a test string", 0
-		
-	
-
-
