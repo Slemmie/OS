@@ -4,8 +4,11 @@
 
 #include "util/util.h"
 
+#include "memory/memory.h"
+
 void main() {
 	
-	
+	vidmem_clear_screen();
+	vidmem_set_cursor(0, 0);
 	
 }
