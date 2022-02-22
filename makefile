@@ -65,4 +65,4 @@ $(BIN_PATH)/boot.bin: $(ROOT_PATH)/boot_sector/boot.asm
 clean:
 	rm -rf ./bin
 	rm -rf *.bin *.o
-	rm -rf kernel/*.o kernel/util/*.o boot_sector/*.bin drivers/*.o
+	rm -rf kernel/*.o kernel/util/*.o kernel/memory/*.o boot_sector/*.bin drivers/*.o

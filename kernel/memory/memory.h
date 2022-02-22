@@ -26,3 +26,9 @@ typedef struct {
 #define _MBH_SIZE sizeof(_MBH)
 
 #define _MBH_EMPTY ((_MBH) { 0, _MBH_STATE_NONE });
+
+// memset, set a block of memory starting at ptr and ending at ptr + size to value
+// size is a number of BYTES
+// value parameter is an unsigned byte, cast to this when using memset
+// memory is set per-byte, so values cannot exceed 255
+void memset(void* ptr, unsigned char value, unsigned int size);
