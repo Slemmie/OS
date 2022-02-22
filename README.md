@@ -24,7 +24,7 @@ Simply compiling does not require qemu as a dependency.
 	$ apt install nasm
 	$ apt install gcc
 	$ apt install make
-	$ apt install binutils (for ld linker tool)
+	$ apt install binutils #(for ld linker tool)
 	$ apt install qemu-system-x86
 
 These packages are common, and should also exist in other mainstream package managers (like PacMan, etc.).
