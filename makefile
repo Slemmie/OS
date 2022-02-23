@@ -39,20 +39,20 @@ $(ROOT_PATH)/boot_loader/boot_loader.bin: $(BOOT_LOADER_ASM_FILES)
 
 # C SOURCE FILES
 C_SOURCE_FILES = \
-$(wildcard $(ROOT_PATH)/kernel/*.c)
+$(wildcard $(ROOT_PATH)/kernel/*.cpp)
 # C HEADER FILES
 C_HEADER_FILES = \
 $(wildcard $(ROOT_PATH)/kernel/*.h)
 # C OBJECT FILES
-C_OBJECT_FILES = ${C_SOURCE_FILES:.c=.o}
+C_OBJECT_FILES = ${C_SOURCE_FILES:.cpp=.o}
 
 # C files compilation
 %.o: %.c ${C_HEADER_FILES}
-	x86_64-elf-gcc -ffreestanding -mno-red-zone -m64 -c $< -o $@
+	/usr/local/x86_64elfgcc/bin/x86_64-elf-gcc -ffreestanding -mno-red-zone -m64 -c $< -o $@
 
 # linking
 $(ROOT_PATH)/kernel/kernel.bin: $(ROOT_PATH)/boot_loader/extended_program.o ${C_OBJECT_FILES}
-	custom-ld -m elf_x86_64 -Ttext 0x7e00 --oformat binary -o $@ $^
+	/usr/local/x86_64elfgcc/bin/x86_64-elf-ld -m elf_x86_64 -Ttext 0x7e00 --oformat binary -o $@ $^
 
 # boot loader: extended program object file
 $(ROOT_PATH)/boot_loader/extended_program.o: $(BOOT_LOADER_ASM_FILES)
@@ -96,7 +96,7 @@ make deps:
 	tar xf gcc-10.2.0.tar.gz && \
 	if [ -d "gcc-build/" ]; then rm -rf gcc-build/; fi && \
 	mkdir -p gcc-build/ && cd gcc-build/  && \
-	../gcc-10.2.0/configure --target=$$TARGET --prefix="$$PREFIX" --disable-nls --disable-libssp --enable-languages=c++ --without-headers && \
+	../gcc-10.2.0/configure --target=$$TARGET --prefix="$$PREFIX" --disable-nls --disable-libssp --enable-languages=all --without-headers && \
 	make all-gcc && \
 	make all-target-libgcc && \
 	make install-gcc && \

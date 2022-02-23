@@ -6,20 +6,20 @@ set_up_identity_paging:
 	mov edi, page_table_entry
 	mov cr3, edi
 	
-	mov dword [edi], 0x2000 | 0b11
+	mov dword [edi], 0x2003
 	add edi, 0x1000
-	mov dword [edi], 0x3000 | 0b11
+	mov dword [edi], 0x3003
 	add edi, 0x1000
-	mov dword [edi], 0x4000 | 0b11
+	mov dword [edi], 0x4003
 	add edi, 0x1000
 	
-	mov ebx, 0x3
+	mov ebx, 0x00000003
 	mov ecx, 512
 	
 	.set_entry:
 		mov dword [edi], ebx
 		add ebx, 0x1000
-		add edi, 0x8
+		add edi, 8
 		loop .set_entry
 	
 	mov eax, cr4
