@@ -4,8 +4,6 @@
 jmp enter_protected_mode
 
 %include "GDT.asm"
-%include "CPUID.asm"
-%include "./util/print.asm"
 
 ; enter 32-bit protected mode
 enter_protected_mode:
@@ -34,6 +32,9 @@ enable_A20:
 
 [bits 32]
 
+%include "CPUID.asm"
+%include "paging.asm"
+
 start_protected_mode:
 	mov ax, data_segment
 	mov ds, ax
@@ -42,13 +43,24 @@ start_protected_mode:
 	mov fs, ax
 	mov gs, ax
 	
-	; print yellow X (remove later :))
-	mov [0xb8000], byte 'X'
-	mov [0xb8001], byte 0x0e
-	
 	call detect_CPUID
 	
 	call detect_long_mode_support
+	
+	call set_up_identity_paging
+	
+	call edit_gdt
+	
+	; never return from here
+	jmp code_segment:start_64bit
+
+[bits 64]
+
+start_64bit:
+	mov edi, 0xb0000
+	mov rax, 0x1f201f201f201f20
+	mov ecx, 500
+	rep stosq
 	
 	jmp $
 

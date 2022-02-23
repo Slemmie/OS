@@ -21,9 +21,9 @@ detect_CPUID:
 	ret
 
 detect_long_mode_support:
-	mov eax 0x80000001
+	mov eax, 0x80000001
 	cpuid
-	test edx 1 << 29
+	test edx, 1 << 29
 	jz _no_long_mode
 	
 	ret
@@ -33,5 +33,5 @@ _no_long_mode:
 	hlt
 
 ; support for CPUID does not exist...
-_no_CPUID
+_no_CPUID:
 	hlt
