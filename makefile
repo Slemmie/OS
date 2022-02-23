@@ -82,23 +82,23 @@ make deps:
 	
 	export PREFIX="/usr/local/x86_64elfgcc"
 	export TARGET=x86_64-elf
-	export PATH="$PREFIX/bin:$PATH"
+	export PATH="$$PREFIX/bin:$$PATH"
 	
 	if [ ! -d "/tmp/src/" ]; then mkdir -p /tmp/src/; fi && \
 	cd /tmp/src/ && \
 	curl -O http://ftp.gnu.org/gnu/binutils/binutils-2.35.1.tar.gz && \
 	mkdir -p binutils-build && cd binutils-build && \
-	../binutils-2.35.1/configure --target=$TARGET --enable-interwork --enable-multilib --disable-nls --disable-werror --prefix=$PREFIX 2>&1 | tee configure.log && \
+	../binutils-2.35.1/configure --target=$$TARGET --enable-interwork --enable-multilib --disable-nls --disable-werror --prefix=$$PREFIX 2>&1 | tee configure.log && \
 	make all install 2>&1 | tee make.log && \
 	cd /tmp/src/ && \
 	curl -O https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz && \
 	tar xf gcc-10.2.0.tar.gz && \
 	if [ -d "gcc-build/" ]; then rm -rf gcc-build/; fi && \
 	mkdir -p gcc-build/ && cd gcc-build/  && \
-	../gcc-10.2.0/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --disable-libssp --enable-languages=c++ --without-headers && \
+	../gcc-10.2.0/configure --target=$$TARGET --prefix="$$PREFIX" --disable-nls --disable-libssp --enable-languages=c++ --without-headers && \
 	make all-gcc && \
 	make all-target-libgcc && \
-	make install-gcc  && \
+	make install-gcc && \
 	make install-target-libgcc
 
 #######################
