@@ -39,7 +39,7 @@ $(ROOT_PATH)/boot_loader/boot_loader.bin: $(BOOT_LOADER_ASM_FILES)
 
 # C SOURCE FILES
 C_SOURCE_FILES = \
-$(wildcard $(ROOT_PATH)/kernel/*.cpp)
+$(wildcard $(ROOT_PATH)/kernel/*.c)
 # C HEADER FILES
 C_HEADER_FILES = \
 $(wildcard $(ROOT_PATH)/kernel/*.h)
@@ -48,7 +48,7 @@ C_OBJECT_FILES = ${C_SOURCE_FILES:.cpp=.o}
 
 # C files compilation
 %.o: %.c ${C_HEADER_FILES}
-	/usr/local/x86_64elfgcc/bin/x86_64-elf-gcc -ffreestanding -mno-red-zone -m64 -c $< -o $@
+	/usr/local/x86_64elfgcc/bin/x86_64-elf-gcc -Ttext 0x8000 -ffreestanding -mno-red-zone -m64 -c $< -o $@
 
 # linking
 $(ROOT_PATH)/kernel/kernel.bin: $(ROOT_PATH)/boot_loader/extended_program.o ${C_OBJECT_FILES}
@@ -88,6 +88,7 @@ make deps:
 	if [ ! -d "/tmp/src/" ]; then mkdir -p /tmp/src/; fi && \
 	cd /tmp/src/ && \
 	curl -O http://ftp.gnu.org/gnu/binutils/binutils-2.35.1.tar.gz && \
+	tar xf binutils-2.35.1.tar.gz && \
 	mkdir -p binutils-build && cd binutils-build && \
 	../binutils-2.35.1/configure --target=$$TARGET --enable-interwork --enable-multilib --disable-nls --disable-werror --prefix=$$PREFIX 2>&1 | tee configure.log && \
 	make all install 2>&1 | tee make.log && \
@@ -105,6 +106,7 @@ make deps:
 #######################
 ### UTILITY SECTION ###
 #######################
+
 # cleans up temporary files
 .PHONY: clean
 clean:
@@ -116,4 +118,3 @@ clean:
 	rm -rf $(ROOT_PATH)/kernel/*.bin
 	rm -rf $(ROOT_PATH)/*.o
 	rm -rf $(ROOT_PATH)/*.bin
-	
