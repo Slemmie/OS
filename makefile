@@ -68,21 +68,21 @@ $(ROOT_PATH)/boot_loader/extended_program.o: $(BOOT_LOADER_ASM_FILES)
 # run with sudo
 .PHONY: deps
 make deps:
-	apt install nasm
-	apt install gcc
-	apt install binutils
-	apt install build-essential
-	apt install bison
-	apt install flex
-	apt install libgmp3-dev
-	apt install libmpc-dev
-	apt install libmpfr-dev
-	apt install texinfo
-	apt install curl
+	apt install -y nasm
+	apt install -y gcc
+	apt install -y binutils
+	apt install -y build-essential
+	apt install -y bison
+	apt install -y flex
+	apt install -y libgmp3-dev
+	apt install -y libmpc-dev
+	apt install -y libmpfr-dev
+	apt install -y texinfo
+	apt install -y curl
 	
-	export PREFIX="/usr/local/x86_64elfgcc" && \
-	export TARGET=x86_64-elf && \
-	export PATH="$PREFIX/bin:$PATH" && \
+	export PREFIX="/usr/local/x86_64elfgcc"
+	export TARGET=x86_64-elf
+	export PATH="$PREFIX/bin:$PATH"
 	
 	if [ ! -d "/tmp/src/" ]; then mkdir -p /tmp/src/; fi && \
 	cd /tmp/src/ && \
