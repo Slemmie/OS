@@ -33,9 +33,9 @@ data_segment equ gdt_data_segment - gdt_null_descriptor
 [bits 32]
 
 edit_gdt:
-	mov [gdt_code_segment + 6], byte 1010111b
+	mov [gdt_code_segment + 6], byte 10101111b
 	
-	mov [gdt_data_segment + 6], byte 1010111b
+	mov [gdt_data_segment + 6], byte 10101111b
 	
 	ret
 
