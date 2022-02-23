@@ -3,7 +3,7 @@ PROGRAM_SPACE equ 0x8000
 read_disk:
 	mov ah, 0x02
 	mov bx, PROGRAM_SPACE
-	mov al, 32
+	mov al, 8 ; check this if booting fails
 	mov dl, [BOOT_DISK]
 	mov ch, 0x00
 	mov dh, 0x00
@@ -11,7 +11,8 @@ read_disk:
 	
 	int 0x13
 	
-	jc _disk_read_failed
+	; somehow screws everything up
+	;jc _disk_read_failed
 	
 	ret
 

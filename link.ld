@@ -4,13 +4,13 @@ ENTRY (_start)
 
 INPUT
 (
-	extended_program.o
-	kernel.o
+	boot_loader/extended_program.o
+	kernel/kernel.o
 )
 
 OUTPUT
 (
-	kernel.bin
+	kernel/kernel.bin
 )
 
 SECTIONS
