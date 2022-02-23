@@ -79,6 +79,7 @@ make deps:
 	apt install -y libmpfr-dev
 	apt install -y texinfo
 	apt install -y curl
+	apt install -y gcc-multilib
 	
 	export PREFIX="/usr/local/x86_64elfgcc"
 	export TARGET=x86_64-elf
