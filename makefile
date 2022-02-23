@@ -44,7 +44,7 @@ $(wildcard $(ROOT_PATH)/kernel/*.c)
 C_HEADER_FILES = \
 $(wildcard $(ROOT_PATH)/kernel/*.h)
 # C OBJECT FILES
-C_OBJECT_FILES = ${C_SOURCE_FILES:.cpp=.o}
+C_OBJECT_FILES = ${C_SOURCE_FILES:.c=.o}
 
 # C files compilation
 %.o: %.c ${C_HEADER_FILES}
@@ -52,7 +52,7 @@ C_OBJECT_FILES = ${C_SOURCE_FILES:.cpp=.o}
 
 # linking
 $(ROOT_PATH)/kernel/kernel.bin: $(ROOT_PATH)/boot_loader/extended_program.o ${C_OBJECT_FILES}
-	/usr/local/x86_64elfgcc/bin/x86_64-elf-ld -m elf_x86_64 -Ttext 0x7e00 --oformat binary -o $@ $^
+	/usr/local/x86_64elfgcc/bin/x86_64-elf-ld -T"link.ld"
 
 # boot loader: extended program object file
 $(ROOT_PATH)/boot_loader/extended_program.o: $(BOOT_LOADER_ASM_FILES)
@@ -87,10 +87,12 @@ make deps:
 	
 	if [ ! -d "/tmp/src/" ]; then mkdir -p /tmp/src/; fi && \
 	cd /tmp/src/ && \
-	curl -O http://ftp.gnu.org/gnu/binutils/binutils-2.35.1.tar.gz && \
-	tar xf binutils-2.35.1.tar.gz && \
+#	curl -O http://ftp.gnu.org/gnu/binutils/binutils-2.35.1.tar.gz && \
+	curl -O https://ftp.gnu.org/gnu/binutils/binutils-2.38.tar.xz && \
+#	tar xf binutils-2.35.1.tar.gz && \
+	tar xf binutils-2.38.tar.xz && \
 	mkdir -p binutils-build && cd binutils-build && \
-	../binutils-2.35.1/configure --target=$$TARGET --enable-interwork --enable-multilib --disable-nls --disable-werror --prefix=$$PREFIX 2>&1 | tee configure.log && \
+	../binutils-2.38/configure --target=$$TARGET --enable-interwork --enable-multilib --disable-nls --disable-werror --prefix=$$PREFIX 2>&1 | tee configure.log && \
 	make all install 2>&1 | tee make.log && \
 	cd /tmp/src/ && \
 	curl -O https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz && \
