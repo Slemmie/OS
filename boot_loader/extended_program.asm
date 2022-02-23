@@ -4,6 +4,7 @@
 jmp enter_protected_mode
 
 %include "GDT.asm"
+%include "CPUID.asm"
 %include "./util/print.asm"
 
 ; enter 32-bit protected mode
@@ -44,6 +45,10 @@ start_protected_mode:
 	; print yellow X (remove later :))
 	mov [0xb8000], byte 'X'
 	mov [0xb8001], byte 0x0e
+	
+	call detect_CPUID
+	
+	call detect_long_mode_support
 	
 	jmp $
 
