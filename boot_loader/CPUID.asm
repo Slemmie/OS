@@ -1,3 +1,5 @@
+; detecting some cpu 64-bit compatibilities
+
 detect_CPUID:
 	pushfd
 	pop eax

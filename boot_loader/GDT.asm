@@ -1,4 +1,4 @@
-; GDT object
+; global descriptor table object
 
 gdt_null_descriptor:
 	dd 0
@@ -32,6 +32,7 @@ data_segment equ gdt_data_segment - gdt_null_descriptor
 
 [bits 32]
 
+; edit gdt for 64-bit mode
 edit_gdt:
 	mov [gdt_code_segment + 6], byte 10101111b
 	

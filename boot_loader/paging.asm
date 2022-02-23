@@ -1,14 +1,16 @@
+; setting up identity paging for 64-bit mode
+
 page_table_entry equ 0x1000
 
 set_up_identity_paging:
 	mov edi, page_table_entry
 	mov cr3, edi
 	
-	mov dword [edi], 0x2000 | 0x3
+	mov dword [edi], 0x2000 | 0b11
 	add edi, 0x1000
-	mov dword [edi], 0x3000 | 0x3
+	mov dword [edi], 0x3000 | 0b11
 	add edi, 0x1000
-	mov dword [edi], 0x4000 | 0x3
+	mov dword [edi], 0x4000 | 0b11
 	add edi, 0x1000
 	
 	mov ebx, 0x3

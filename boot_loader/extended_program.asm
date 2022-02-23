@@ -1,5 +1,7 @@
 [org 0x7e00]
 
+; prepare 32-bit mode
+; then prepare 64-bit mode
 ; never return from here
 jmp enter_protected_mode
 
@@ -20,6 +22,7 @@ enter_protected_mode:
 	or eax, 1
 	mov cr0, eax
 	
+	; move to 32-bit mode
 	; never return from here
 	jmp code_segment:start_protected_mode
 
@@ -35,6 +38,7 @@ enable_A20:
 %include "CPUID.asm"
 %include "paging.asm"
 
+; main 32-bit section
 start_protected_mode:
 	mov ax, data_segment
 	mov ds, ax
@@ -43,10 +47,7 @@ start_protected_mode:
 	mov fs, ax
 	mov gs, ax
 	
-	mov [0xb8000], byte 'X'
-	mov [0xb8001], byte 0x0e
-	
-	;jmp $
+	; get ready for moving to 64-bit mode
 	
 	call detect_CPUID
 	
@@ -56,11 +57,13 @@ start_protected_mode:
 	
 	call edit_gdt
 	
+	; move to 64 bit mode
 	; never return from here
 	jmp code_segment:start_64bit
 
 [bits 64]
 
+; main 64-bit section
 start_64bit:
 	; make screen blue :)
 	; remove later
