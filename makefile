@@ -121,5 +121,7 @@ clean:
 	rm -rf $(ROOT_PATH)/boot_loader/util/*.bin
 	rm -rf $(ROOT_PATH)/kernel/*.o
 	rm -rf $(ROOT_PATH)/kernel/*.bin
+	rm -rf $(ROOT_PATH)/kernel/util/*.o
+	rm -rf $(ROOT_PATH)/kernel/util/*.bin
 	rm -rf $(ROOT_PATH)/*.o
 	rm -rf $(ROOT_PATH)/*.bin
