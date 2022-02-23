@@ -99,7 +99,7 @@ make deps:
 	make all-gcc  && \
 	make all-target-libgcc  && \
 	make install-gcc  && \
-	make install-target-libgcc && \
+	make install-target-libgcc
 
 #######################
 ### UTILITY SECTION ###
