@@ -93,7 +93,7 @@ make deps:
 	cd /tmp/src/  && \
 	curl -O https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz  && \
 	tar xf gcc-10.2.0.tar.gz  && \
-	if [ -d "gcc-build/" ]; then rm -rf gcc-build/; fi;  && \
+	if [ -d "gcc-build/" ]; then rm -rf gcc-build/; fi  && \
 	mkdir -p gcc-build/ && cd gcc-build/  && \
 	../gcc-10.2.0/configure --target=$TARGET --prefix="$PREFIX" --disable-nls --disable-libssp --enable-languages=c++ --without-headers  && \
 	make all-gcc  && \
