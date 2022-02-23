@@ -19,3 +19,5 @@ typedef _Bool bool_t;
 #define true  1
 #define false 0
 #endif
+
+typedef uint_64 size_t;
