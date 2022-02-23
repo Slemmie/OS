@@ -1,4 +1,3 @@
-[org 0x7e00]
 
 ; prepare 32-bit mode
 ; then prepare 64-bit mode
@@ -62,6 +61,7 @@ start_protected_mode:
 	jmp code_segment:start_64bit
 
 [bits 64]
+[extern _start]
 
 ; main 64-bit section
 start_64bit:
@@ -71,6 +71,8 @@ start_64bit:
 	mov rax, 0x1f201f201f201f20
 	mov ecx, 25 * 80 / 4
 	rep stosq
+	
+	call _start
 	
 	; jump infinetely
 	jmp $
