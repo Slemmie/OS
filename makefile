@@ -58,7 +58,7 @@ KERNEL_LINKER = link.ld
 
 # linking
 $(ROOT_PATH)/kernel/kernel.bin: $(ROOT_PATH)/boot_loader/extended_program.o ${C_OBJECT_FILES}
-	ld -T"$(KERNEL_LINKER)"
+	ld -T"$(KERNEL_LINKER)" -nostdlib
 #	/usr/local/x86_64elfgcc/bin/x86_64-elf-ld -T"$(KERNEL_LINKER)"
 
 # boot loader: extended program object file
