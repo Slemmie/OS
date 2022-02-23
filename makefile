@@ -46,13 +46,16 @@ $(wildcard $(ROOT_PATH)/kernel/*.h)
 # C OBJECT FILES
 C_OBJECT_FILES = ${C_SOURCE_FILES:.c=.o}
 
+# kernel linker script
+KERNEL_LINKER = link.ld
+
 # C files compilation
 %.o: %.c ${C_HEADER_FILES}
 	/usr/local/x86_64elfgcc/bin/x86_64-elf-gcc -Ttext 0x8000 -ffreestanding -mno-red-zone -m64 -c $< -o $@
 
 # linking
 $(ROOT_PATH)/kernel/kernel.bin: $(ROOT_PATH)/boot_loader/extended_program.o ${C_OBJECT_FILES}
-	/usr/local/x86_64elfgcc/bin/x86_64-elf-ld -T"link.ld"
+	/usr/local/x86_64elfgcc/bin/x86_64-elf-ld -T"$(KERNEL_LINKER)"
 
 # boot loader: extended program object file
 $(ROOT_PATH)/boot_loader/extended_program.o: $(BOOT_LOADER_ASM_FILES)
