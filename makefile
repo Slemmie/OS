@@ -53,11 +53,13 @@ KERNEL_LINKER = link.ld
 
 # C files compilation
 %.o: %.c ${C_HEADER_FILES}
-	/usr/local/x86_64elfgcc/bin/x86_64-elf-gcc -Ttext 0x8000 -ffreestanding -mno-red-zone -m64 -c $< -o $@
+	gcc -Ttext 0x8000 -ffreestanding -mno-red-zone -m64 -c $< -o $@
+#	/usr/local/x86_64elfgcc/bin/x86_64-elf-gcc -Ttext 0x8000 -ffreestanding -mno-red-zone -m64 -c $< -o $@
 
 # linking
 $(ROOT_PATH)/kernel/kernel.bin: $(ROOT_PATH)/boot_loader/extended_program.o ${C_OBJECT_FILES}
-	/usr/local/x86_64elfgcc/bin/x86_64-elf-ld -T"$(KERNEL_LINKER)"
+	ld -T"$(KERNEL_LINKER)"
+#	/usr/local/x86_64elfgcc/bin/x86_64-elf-ld -T"$(KERNEL_LINKER)"
 
 # boot loader: extended program object file
 $(ROOT_PATH)/boot_loader/extended_program.o: $(BOOT_LOADER_ASM_FILES)
@@ -86,10 +88,6 @@ make deps:
 	apt install -y curl
 	apt install -y gcc-multilib
 	
-	export PREFIX="/usr/local/x86_64elfgcc"
-	export TARGET=x86_64-elf
-	export PATH="$$PREFIX/bin:$$PATH"
-	
 	if [ ! -d "/tmp/src/" ]; then mkdir -p /tmp/src/; fi && \
 	cd /tmp/src/ && \
 #	curl -O http://ftp.gnu.org/gnu/binutils/binutils-2.35.1.tar.gz && \
@@ -103,7 +101,7 @@ make deps:
 	curl -O https://ftp.gnu.org/gnu/gcc/gcc-10.2.0/gcc-10.2.0.tar.gz && \
 	tar xf gcc-10.2.0.tar.gz && \
 	if [ -d "gcc-build/" ]; then rm -rf gcc-build/; fi && \
-	mkdir -p gcc-build/ && cd gcc-build/  && \
+	mkdir -p gcc-build/ && cd gcc-build/ && \
 	../gcc-10.2.0/configure --target=$$TARGET --prefix="$$PREFIX" --disable-nls --disable-libssp --enable-languages=all --without-headers && \
 	make all-gcc && \
 	make all-target-libgcc && \
