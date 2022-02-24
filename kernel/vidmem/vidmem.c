@@ -15,6 +15,9 @@
 
 typedef uint_16 _vm_pos;
 
+// current cleared color
+uint_8 _VIDMEM_CURRENT_CLEARED_COLOR = 0x0f;
+
 // begin utility (used only in vidmem.c)
 
 // get _vm_pos of row and col
@@ -60,7 +63,7 @@ void _vidmem_scroll_down(uint_64 count) {
 	
 	for (uint_8 col = 0; col < _VIDMEM_COL_CNT; col++) {
 		_VIDMEM_ADDRESS[_vidmem_position_of(_VIDMEM_ROW_CNT - 1, col)    ] = 0x00;
-		_VIDMEM_ADDRESS[_vidmem_position_of(_VIDMEM_ROW_CNT - 1, col) | 1] = 0x0f;
+		_VIDMEM_ADDRESS[_vidmem_position_of(_VIDMEM_ROW_CNT - 1, col) | 1] = _VIDMEM_CURRENT_CLEARED_COLOR;
 	}
 	
 	if (--count) {
@@ -167,17 +170,18 @@ void vidmem_clear_screen() {
 	for (uint_8 row = 0; row < _VIDMEM_ROW_CNT; row++) {
 		for (uint_8 col = 0; col < _VIDMEM_COL_CNT; col++) {
 			_VIDMEM_ADDRESS[_vidmem_position_of(row, col)    ] = 0x00;
-			_VIDMEM_ADDRESS[_vidmem_position_of(row, col) | 1] = 0x0f;
+			_VIDMEM_ADDRESS[_vidmem_position_of(row, col) | 1] = _VIDMEM_CURRENT_CLEARED_COLOR;
 		}
 	}
 }
 
 // clear screen to a specific color
 void vidmem_clear_screen_color(uint_8 color) {
+	_VIDMEM_CURRENT_CLEARED_COLOR = color;
 	for (uint_8 row = 0; row < _VIDMEM_ROW_CNT; row++) {
 		for (uint_8 col = 0; col < _VIDMEM_COL_CNT; col++) {
 			_VIDMEM_ADDRESS[_vidmem_position_of(row, col)    ] =  0x00;
-			_VIDMEM_ADDRESS[_vidmem_position_of(row, col) | 1] = color;
+			_VIDMEM_ADDRESS[_vidmem_position_of(row, col) | 1] = _VIDMEM_CURRENT_CLEARED_COLOR;
 		}
 	}
 }
