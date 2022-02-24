@@ -28,3 +28,8 @@ Simply compiling does not require qemu as a dependency.
 	$ apt install qemu-system-x86
 
 These packages are common, and should also exist in other mainstream package managers (like PacMan, etc.).
+
+# Style
+For now, there is not really an established conduct, however;
+- No use of C-stl or 3rd-party libraries
+- Everything written in assembly or C (aside from linker scripts and makefiles)
