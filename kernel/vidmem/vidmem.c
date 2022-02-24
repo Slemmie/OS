@@ -60,7 +60,7 @@ void _vidmem_scroll_down(uint_64 count) {
 	
 	for (uint_8 col = 0; col < _VIDMEM_COL_CNT; col++) {
 		_VIDMEM_ADDRESS[_vidmem_position_of(_VIDMEM_ROW_CNT - 1, col)    ] = 0x00;
-		_VIDMEM_ADDRESS[_vidmem_position_of(_VIDMEM_ROW_CNT - 1, col) | 1] = 0x00;
+		_VIDMEM_ADDRESS[_vidmem_position_of(_VIDMEM_ROW_CNT - 1, col) | 1] = 0x0f;
 	}
 	
 	if (--count) {
@@ -73,9 +73,9 @@ void _vidmem_scroll_down(uint_64 count) {
 // handle scrolling
 // updates cursor position at the end
 void _vidmem_advance_cursor(uint_64 count) {
-	//if (!count) {
-		//return;
-	//}
+	if (!count) {
+		return;
+	}
 	
 	uint_8 row = _vidmem_row_of(_vidmem_get_cursor());
 	uint_8 col = _vidmem_col_of(_vidmem_get_cursor());
@@ -96,9 +96,9 @@ void _vidmem_advance_cursor(uint_64 count) {
 	
 	vidmem_set_cursor(row, col);
 	
-	//if (--count) {
-		//_vidmem_advance_cursor(count);
-	//}
+	if (--count) {
+		_vidmem_advance_cursor(count);
+	}
 }
 
 // end utility (used only in vidmem.c)
@@ -181,4 +181,18 @@ void vidmem_putchar_color(uint_8 data, uint_8 color) {
 	_VIDMEM_ADDRESS[(_vidmem_get_cursor() << 1) | 1] = color;
 	
 	_vidmem_advance_cursor(1);
+}
+
+// put chars and advance cursor
+void vidmem_puts(uint_8* data) {
+	for (uint_8* it = data; *it != '\0'; it++) {
+		vidmem_putchar(*it);
+	}
+}
+
+// put chars with color and advance cursor
+void vidmem_puts_color(uint_8* data, uint_8 color) {
+	for (uint_8* it = data; *it != '\0'; it++) {
+		vidmem_putchar_color(*it, color);
+	}
 }

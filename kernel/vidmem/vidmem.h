@@ -14,6 +14,8 @@
 #define clear_screen_color vidmem_clear_screen_color
 #define putchar            vidmem_putchar
 #define putchar_color      vidmem_putchar_color
+#define puts               vidmem_puts
+#define puts_color         vidmem_puts_color
 
 #endif
 
@@ -37,3 +39,10 @@ void vidmem_putchar(uint_8 data);
 // same as vidmem_putchar()
 // but allows setting of FG/BG color as well
 void vidmem_putchar_color(uint_8 data, uint_8 color);
+
+// put a null-terminated string of characters on the screen
+// also advance cursor by string length
+void vidmem_puts(uint_8* data);
+// same as vidmem_puts()
+// but allows setting of FG/BG color as well
+void vidmem_puts_color(uint_8* data, uint_8 color);
