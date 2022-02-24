@@ -33,14 +33,13 @@ uint_8 _vidmem_col_of(_vm_pos position) {
 }
 
 // get cursor position (_vm_pos format)
-_vm_pos vidmem_get_cursor() {
+_vm_pos _vidmem_get_cursor() {
 	port_byte_out(_VIDMEM_REGISTER_SCREEN_CTRL, 14);
 	_vm_pos result = port_byte_in(_VIDMEM_REGISTER_SCREEN_DATA) << 8;
 	port_byte_out(_VIDMEM_REGISTER_SCREEN_CTRL, 15);
 	result += port_byte_in(_VIDMEM_REGISTER_SCREEN_DATA);
 	return result;
 }
-
 // end utility (used only in vidmem.c)
 
 // set cursor position
@@ -58,12 +57,12 @@ void vidmem_set_cursor(uint_8 row, uint_8 col) {
 
 // get cursor position row
 uint_8 vidmem_cursor_row() {
-	return _vidmem_row_of(vidmem_get_cursor());
+	return _vidmem_row_of(_vidmem_get_cursor());
 }
 
 // get cursor position col
 uint_8 vidmem_cursor_col() {
-	return _vidmem_col_of(vidmem_get_cursor());
+	return _vidmem_col_of(_vidmem_get_cursor());
 }
 
 // clear the screen
