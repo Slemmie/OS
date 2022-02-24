@@ -3,10 +3,12 @@
 #define VIDMEM_SIMPLIFIED_API
 #include "vidmem/vidmem.h"
 
+#include "drivers/keyboard.c"
 #include "FPU.h"
 
 void _start() {
 	enable_FPU();
+	initializeIDT();
 	
 	clear_screen();
 	set_cursor(0, 0);
