@@ -16,17 +16,17 @@ typedef uint_16 _vm_pos;
 
 // get _vm_pos of row and col
 _vm_pos _vidmem_position_of(uint_8 row, uint_8 col) {
-	return (_vm_pos) row * _VIDMEM_COL_CNT + (_vm_pos) col;
+	return ((_vm_pos) row * _VIDMEM_COL_CNT + (_vm_pos) col) << 1;
 }
 
 // get row of _vm_pos
 uint_8 _vidmem_row_of(_vm_pos position) {
-	return position / _VIDMEM_COL_CNT;
+	return (position >> 1) / _VIDMEM_COL_CNT;
 }
 
 // get col of _vm_pos
 uint_8 _vidmem_col_of(_vm_pos position) {
-	return position % _VIDMEM_COL_CNT;
+	return (position >> 1) % _VIDMEM_COL_CNT;
 }
 
 // end utility (used only in vidmem.c)
@@ -37,9 +37,29 @@ uint_8 _vidmem_col_of(_vm_pos position) {
 void vidmem_set_cursor(uint_8 row, uint_8 col) {
 	row = min(row, _VIDMEM_ROW_CNT - 1);
 	col = min(col, _VIDMEM_COL_CNT - 1);
-	_vm_pos position = _vidmem_position_of(row, col);
+	_vm_pos position = _vidmem_position_of(row, col) >> 1;
 	port_byte_out(0x3d4, 0x0f);
 	port_byte_out(0x3d5, (uint_8) position);
 	port_byte_out(0x3d4, 0x0e);
 	port_byte_out(0x3d5, (uint_8) (position >> 8));
+}
+
+// clear the screen
+void vidmem_clear_screen() {
+	for (uint_8 row = 0; row < _VIDMEM_ROW_CNT; row++) {
+		for (uint_8 col = 0; col < _VIDMEM_COL_CNT; col++) {
+			_VIDMEM_ADDRESS[_vidmem_position_of(row, col)    ] = 0x00;
+			_VIDMEM_ADDRESS[_vidmem_position_of(row, col) | 1] = 0x00;
+		}
+	}
+}
+
+// clear screen to a specific color
+void vidmem_clear_screen_color(uint_8 color) {
+	for (uint_8 row = 0; row < _VIDMEM_ROW_CNT; row++) {
+		for (uint_8 col = 0; col < _VIDMEM_COL_CNT; col++) {
+			_VIDMEM_ADDRESS[_vidmem_position_of(row, col)    ] =  0x00;
+			_VIDMEM_ADDRESS[_vidmem_position_of(row, col) | 1] = color;
+		}
+	}
 }
