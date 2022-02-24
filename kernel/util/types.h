@@ -21,3 +21,11 @@ typedef _Bool bool_t;
 #endif
 
 typedef uint_64 size_t;
+
+typedef       float   float_4;
+typedef      double   float_8;
+typedef long double  float_12;
+
+typedef       float  double_4;
+typedef      double  double_8;
+typedef long double double_12;
