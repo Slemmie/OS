@@ -97,9 +97,7 @@ make deps:
 	
 	if [ ! -d "/tmp/src/" ]; then mkdir -p /tmp/src/; fi && \
 	cd /tmp/src/ && \
-#	curl -O http://ftp.gnu.org/gnu/binutils/binutils-2.35.1.tar.gz && \
 	curl -O https://ftp.gnu.org/gnu/binutils/binutils-2.38.tar.xz && \
-#	tar xf binutils-2.35.1.tar.gz && \
 	tar xf binutils-2.38.tar.xz && \
 	mkdir -p binutils-build && cd binutils-build && \
 	../binutils-2.38/configure --target=$$TARGET --enable-interwork --enable-multilib --disable-nls --disable-werror --prefix=$$PREFIX 2>&1 | tee configure.log && \
