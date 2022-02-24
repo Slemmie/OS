@@ -3,7 +3,11 @@
 #define VIDMEM_SIMPLIFIED_API
 #include "vidmem/vidmem.h"
 
+#include "FPU.h"
+
 void _start() {
+	enable_FPU();
+	
 	clear_screen();
 	set_cursor(0, 0);
 	
