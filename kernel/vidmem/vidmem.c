@@ -40,6 +40,58 @@ _vm_pos _vidmem_get_cursor() {
 	result += port_byte_in(_VIDMEM_REGISTER_SCREEN_DATA);
 	return result;
 }
+
+// scroll down a given number of lines
+// does not update cursor position
+void _vidmem_scroll_down(uint_64 count) {
+	for (uint_8 row = 0; row < _VIDMEM_ROW_CNT - 1; row++) {
+		for (uint_8 col = 0; col < _VIDMEM_COL_CNT; col++) {
+			_VIDMEM_ADDRESS[_vidmem_position_of(row, col)    ] =
+			_VIDMEM_ADDRESS[_vidmem_position_of(row + 1, col)];
+			_VIDMEM_ADDRESS[_vidmem_position_of(row, col)     | 1] =
+			_VIDMEM_ADDRESS[_vidmem_position_of(row + 1, col) | 1];
+		}
+	}
+	
+	for (uint_8 col = 0; col < _VIDMEM_COL_CNT; col++) {
+		_VIDMEM_ADDRESS[_vidmem_position_of(_VIDMEM_ROW_CNT - 1, col)    ] = 0x00;
+		_VIDMEM_ADDRESS[_vidmem_position_of(_VIDMEM_ROW_CNT - 1, col) | 1] = 0x00;
+	}
+	
+	if (count) {
+		_vidmem_scroll_down(count--);
+	}
+}
+
+// advance cursor by count
+// handle end of line
+// handle scrolling
+// updates cursor position at the end
+void _vidmem_advance_cursor(uint_64 count) {
+	uint_8 row = _vidmem_row_of(_vidmem_get_cursor());
+	uint_8 col = _vidmem_col_of(_vidmem_get_cursor());
+	
+	col++;
+	
+	// end of line?
+	if (col >= _VIDMEM_COL_CNT) {
+		col = 0;
+		row++;
+	}
+	
+	// handle scrolling
+	while (row >= _VIDMEM_ROW_CNT) {
+		_vidmem_scroll_down(1);
+		row--;
+	}
+	
+	vidmem_set_cursor(row, col);
+	
+	if (count) {
+		_vidmem_advance_cursor(count--);
+	}
+}
+
 // end utility (used only in vidmem.c)
 
 // set cursor position
