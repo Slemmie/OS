@@ -184,15 +184,15 @@ void vidmem_putchar_color(uint_8 data, uint_8 color) {
 }
 
 // put chars and advance cursor
-void vidmem_puts(uint_8* data) {
-	for (uint_8* it = data; *it != '\0'; it++) {
-		vidmem_putchar(*it);
+void vidmem_puts(const uint_8* data) {
+	for (size_t i = 0; data[i] != '\0'; i++) {
+		vidmem_putchar(data[i]);
 	}
 }
 
 // put chars with color and advance cursor
-void vidmem_puts_color(uint_8* data, uint_8 color) {
-	for (uint_8* it = data; *it != '\0'; it++) {
-		vidmem_putchar_color(*it, color);
+void vidmem_puts_color(const uint_8* data, uint_8 color) {
+	for (size_t i = 0; data[i] != '\0'; i++) {
+		vidmem_putchar_color(data[i], color);
 	}
 }

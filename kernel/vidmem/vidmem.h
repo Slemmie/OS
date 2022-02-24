@@ -116,7 +116,7 @@ void vidmem_putchar_color(uint_8 data, uint_8 color);
 
 // put a null-terminated string of characters on the screen
 // also advance cursor by string length
-void vidmem_puts(uint_8* data);
+void vidmem_puts(const uint_8* data);
 // same as vidmem_puts()
 // but allows setting of FG/BG color as well
-void vidmem_puts_color(uint_8* data, uint_8 color);
+void vidmem_puts_color(const uint_8* data, uint_8 color);
