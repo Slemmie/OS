@@ -24,15 +24,16 @@ _vm_pos _vidmem_position_of(uint_8 row, uint_8 col) {
 
 // get row of _vm_pos
 uint_8 _vidmem_row_of(_vm_pos position) {
-	return (position >> 1) / _VIDMEM_COL_CNT;
+	return position / _VIDMEM_COL_CNT;
 }
 
 // get col of _vm_pos
 uint_8 _vidmem_col_of(_vm_pos position) {
-	return (position >> 1) % _VIDMEM_COL_CNT;
+	return position % _VIDMEM_COL_CNT;
 }
 
 // get cursor position (_vm_pos format)
+// does not correct for color bytes
 _vm_pos _vidmem_get_cursor() {
 	port_byte_out(_VIDMEM_REGISTER_SCREEN_CTRL, 14);
 	_vm_pos result = port_byte_in(_VIDMEM_REGISTER_SCREEN_DATA) << 8;
@@ -44,6 +45,10 @@ _vm_pos _vidmem_get_cursor() {
 // scroll down a given number of lines
 // does not update cursor position
 void _vidmem_scroll_down(uint_64 count) {
+	if (!count) {
+		return;
+	}
+	
 	for (uint_8 row = 0; row < _VIDMEM_ROW_CNT - 1; row++) {
 		for (uint_8 col = 0; col < _VIDMEM_COL_CNT; col++) {
 			_VIDMEM_ADDRESS[_vidmem_position_of(row, col)    ] =
@@ -58,8 +63,8 @@ void _vidmem_scroll_down(uint_64 count) {
 		_VIDMEM_ADDRESS[_vidmem_position_of(_VIDMEM_ROW_CNT - 1, col) | 1] = 0x00;
 	}
 	
-	if (count) {
-		_vidmem_scroll_down(count--);
+	if (--count) {
+		_vidmem_scroll_down(count);
 	}
 }
 
@@ -68,6 +73,10 @@ void _vidmem_scroll_down(uint_64 count) {
 // handle scrolling
 // updates cursor position at the end
 void _vidmem_advance_cursor(uint_64 count) {
+	//if (!count) {
+		//return;
+	//}
+	
 	uint_8 row = _vidmem_row_of(_vidmem_get_cursor());
 	uint_8 col = _vidmem_col_of(_vidmem_get_cursor());
 	
@@ -87,9 +96,9 @@ void _vidmem_advance_cursor(uint_64 count) {
 	
 	vidmem_set_cursor(row, col);
 	
-	if (count) {
-		_vidmem_advance_cursor(count--);
-	}
+	//if (--count) {
+		//_vidmem_advance_cursor(count);
+	//}
 }
 
 // end utility (used only in vidmem.c)
@@ -122,7 +131,7 @@ void vidmem_clear_screen() {
 	for (uint_8 row = 0; row < _VIDMEM_ROW_CNT; row++) {
 		for (uint_8 col = 0; col < _VIDMEM_COL_CNT; col++) {
 			_VIDMEM_ADDRESS[_vidmem_position_of(row, col)    ] = 0x00;
-			_VIDMEM_ADDRESS[_vidmem_position_of(row, col) | 1] = 0x00;
+			_VIDMEM_ADDRESS[_vidmem_position_of(row, col) | 1] = 0x0f;
 		}
 	}
 }
@@ -135,4 +144,41 @@ void vidmem_clear_screen_color(uint_8 color) {
 			_VIDMEM_ADDRESS[_vidmem_position_of(row, col) | 1] = color;
 		}
 	}
+}
+
+// put a char then advance cursor
+void vidmem_putchar(uint_8 data) {
+	if (data == '\n') {
+		uint_8 col = 0;
+		uint_8 row = vidmem_cursor_row() + 1;
+		while (row >= _VIDMEM_ROW_CNT) {
+			_vidmem_scroll_down(1);
+			row--;
+		}
+		vidmem_set_cursor(row, col);
+		return;
+	}
+	
+	_VIDMEM_ADDRESS[_vidmem_get_cursor() << 1] = data;
+	
+	_vidmem_advance_cursor(1);
+}
+
+// put a char with color then advance cursor
+void vidmem_putchar_color(uint_8 data, uint_8 color) {
+	if (data == '\n') {
+		uint_8 col = 0;
+		uint_8 row = vidmem_cursor_row() + 1;
+		while (row >= _VIDMEM_ROW_CNT) {
+			_vidmem_scroll_down(1);
+			row--;
+		}
+		vidmem_set_cursor(row, col);
+		return;
+	}
+	
+	_VIDMEM_ADDRESS[(_vidmem_get_cursor() << 1)    ] =  data;
+	_VIDMEM_ADDRESS[(_vidmem_get_cursor() << 1) | 1] = color;
+	
+	_vidmem_advance_cursor(1);
 }

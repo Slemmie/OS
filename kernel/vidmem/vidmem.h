@@ -12,6 +12,8 @@
 #define cursor_col         vidmem_cursor_col
 #define clear_screen       vidmem_clear_screen
 #define clear_screen_color vidmem_clear_screen_color
+#define putchar            vidmem_putchar
+#define putchar_color      vidmem_putchar_color
 
 #endif
 
@@ -28,3 +30,10 @@ uint_8 vidmem_cursor_col();
 void vidmem_clear_screen();
 // clear screen to a specific color
 void vidmem_clear_screen_color(uint_8 color);
+
+// put a character on the screen
+// then advance cursor by one
+void vidmem_putchar(uint_8 data);
+// same as vidmem_putchar()
+// but allows setting of FG/BG color as well
+void vidmem_putchar_color(uint_8 data, uint_8 color);
