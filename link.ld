@@ -7,6 +7,7 @@ INPUT (
 	kernel/kernel.o
 	kernel/port_io.o
 	kernel/util/algorithm.o
+	kernel/vidmem/vidmem.o
 )
 
 OUTPUT (
