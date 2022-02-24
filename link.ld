@@ -5,6 +5,7 @@ ENTRY (_start)
 INPUT (
 	boot_loader/extended_program.o
 	kernel/kernel.o
+	kernel/util/algorithm.o
 )
 
 OUTPUT (
