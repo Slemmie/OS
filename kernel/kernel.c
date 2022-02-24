@@ -3,15 +3,17 @@
 #define VIDMEM_SIMPLIFIED_API
 #include "vidmem/vidmem.h"
 
-#include "drivers/keyboard.c"
 #include "FPU.h"
 
+#include "drivers/IDT.h"
+
 void _start() {
-	enable_FPU();
-	initializeIDT();
-	
-	clear_screen();
+	clear_screen_color(BG_BLUE | FG_WHITE);
 	set_cursor(0, 0);
+	
+	enable_FPU();
+	
+	initialize_IDT();
 	
 	char* str = "abcd hello\n\nwith hey, ho, the\nwind\n\n\n       and the rain\n\n    :)\n";
 	puts(str);

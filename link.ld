@@ -8,6 +8,7 @@ INPUT (
 	kernel/port_io.o
 	kernel/util/algorithm.o
 	kernel/vidmem/vidmem.o
+	kernel/drivers/IDT.o
 )
 
 OUTPUT (
@@ -21,7 +22,7 @@ SECTIONS {
 		*(.text)
 	}
 	
-	.idt BLOCK(0x1000) : ALIGN(0x1000){
+	.idt BLOCK(0x1000) : ALIGN(0x1000) {
 		_idt = .;
 		. = . + 0x1000;
 	}

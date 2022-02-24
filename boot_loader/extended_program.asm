@@ -63,14 +63,16 @@ start_protected_mode:
 [bits 64]
 [extern _start]
 
+%include "IDT.asm"
+
 ; main 64-bit section
 start_64bit:
 	; make screen blue :)
 	; remove later
-	mov edi, 0xb8000
-	mov rax, 0x1f201f201f201f20
-	mov ecx, 25 * 80 / 4
-	rep stosq
+	;mov edi, 0xb8000
+	;mov rax, 0x1f201f201f201f20
+	;mov ecx, 25 * 80 / 4
+	;rep stosq
 	
 	call _start
 	

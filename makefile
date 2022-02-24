@@ -38,15 +38,17 @@ $(ROOT_PATH)/boot_loader/boot_loader.bin: $(BOOT_LOADER_ASM_FILES)
 ######################
 
 # C SOURCE FILES
-C_SOURCE_FILES =                           \
-$(wildcard $(ROOT_PATH)/kernel/*.c)        \
-$(wildcard $(ROOT_PATH)/kernel/util/*.c)   \
-$(wildcard $(ROOT_PATH)/kernel/vidmem/*.c)
+C_SOURCE_FILES =                            \
+$(wildcard $(ROOT_PATH)/kernel/*.c)         \
+$(wildcard $(ROOT_PATH)/kernel/util/*.c)    \
+$(wildcard $(ROOT_PATH)/kernel/vidmem/*.c)  \
+$(wildcard $(ROOT_PATH)/kernel/drivers/*.c)
 # C HEADER FILES
-C_HEADER_FILES =                           \
-$(wildcard $(ROOT_PATH)/kernel/*.h)        \
-$(wildcard $(ROOT_PATH)/kernel/util/*.h)   \
-$(wildcard $(ROOT_PATH)/kernel/vidmem/*.h)
+C_HEADER_FILES =                            \
+$(wildcard $(ROOT_PATH)/kernel/*.h)         \
+$(wildcard $(ROOT_PATH)/kernel/util/*.h)    \
+$(wildcard $(ROOT_PATH)/kernel/vidmem/*.h)  \
+$(wildcard $(ROOT_PATH)/kernel/drivers/*.h)
 # C OBJECT FILES
 C_OBJECT_FILES = ${C_SOURCE_FILES:.c=.o}
 
@@ -130,5 +132,7 @@ clean:
 	rm -rf $(ROOT_PATH)/kernel/util/*.bin
 	rm -rf $(ROOT_PATH)/kernel/vidmem/*.o
 	rm -rf $(ROOT_PATH)/kernel/vidmem/*.bin
+	rm -rf $(ROOT_PATH)/kernel/drivers/*.o
+	rm -rf $(ROOT_PATH)/kernel/drivers/*.bin
 	rm -rf $(ROOT_PATH)/*.o
 	rm -rf $(ROOT_PATH)/*.bin
