@@ -10,4 +10,8 @@ void _start() {
 	char* str = "abcd hello\n\nwith hey, ho, the\nwind\n\n\n       and the rain\n\n    :)\n";
 	puts(str);
 	puts_color(str, FG_PURPLE);
+	
+	putchar('\n');
+	
+	put_int(0xfec71a09b, 16);
 }

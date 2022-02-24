@@ -101,6 +101,42 @@ void _vidmem_advance_cursor(uint_64 count) {
 	}
 }
 
+// put a number on the screen
+const uint_8* _VIDMEM_DIGIT_TO_CHAR = "0123456789abcdef";
+void _vidmem_put_int(int_64 value, int_8 base, uint_8 color, bool_t write_color) {
+	bool_t is_unsigned = base < 0;
+	if (is_unsigned) {
+		base = -base;
+	}
+	
+	bool_t is_neg = !is_unsigned && value < (int_64) 0;
+	if (is_neg) {
+		value = -value;
+		write_color ? vidmem_putchar_color('-', color) : vidmem_putchar('-');
+	}
+	
+	size_t digit_cnt = 0;
+	uint_64 temp = (uint_64) value;
+	uint_64 mult = 1;
+	do {
+		digit_cnt++;
+		temp /= base;
+		if (temp) {
+			mult *= base;
+		}
+	} while (temp);
+	
+	for (size_t digit_index = 0; digit_index < digit_cnt; digit_index++) {
+		temp = (uint_64) value;
+		temp /= mult;
+		mult /= base;
+		temp %= base;
+		write_color ?
+		vidmem_putchar_color(_VIDMEM_DIGIT_TO_CHAR[temp], color) :
+		vidmem_putchar      (_VIDMEM_DIGIT_TO_CHAR[temp]       );
+	}
+}
+
 // end utility (used only in vidmem.c)
 
 // set cursor position
@@ -195,4 +231,14 @@ void vidmem_puts_color(const uint_8* data, uint_8 color) {
 	for (size_t i = 0; data[i] != '\0'; i++) {
 		vidmem_putchar_color(data[i], color);
 	}
+}
+
+// put a number on the screen
+void vidmem_put_int(int_64 value, int_8 base) {
+	_vidmem_put_int(value, base, 0, false);
+}
+
+// put a number with color on the screen
+void vidmem_put_int_color(int_64 value, int_8 base, uint_8 color) {
+	_vidmem_put_int(value, base, color, true);
 }

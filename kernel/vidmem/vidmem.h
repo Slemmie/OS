@@ -16,6 +16,8 @@
 #define putchar_color      vidmem_putchar_color
 #define puts               vidmem_puts
 #define puts_color         vidmem_puts_color
+#define put_int            vidmem_put_int
+#define put_int_color      vidmem_put_int_color
 
 #define FG_BLACK        VIDMEM_FG_BLACK
 #define FG_BLUE         VIDMEM_FG_BLUE
@@ -120,3 +122,12 @@ void vidmem_puts(const uint_8* data);
 // same as vidmem_puts()
 // but allows setting of FG/BG color as well
 void vidmem_puts_color(const uint_8* data, uint_8 color);
+
+// put a integer on the screen, in bases from [2-16]
+// also advance cursor by length of number
+// it gets done without allocating/using any arrays
+// pass negative base to indicate value being strictly unsigned
+void vidmem_put_int(int_64 value, int_8 base);
+// same as vidmem_put_int()
+// but allows setting of FG/BG color as well
+void vidmem_put_int_color(int_64 value, int_8 base, uint_8 color);
