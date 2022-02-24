@@ -69,6 +69,11 @@ $(ROOT_PATH)/boot_loader/extended_program.o: $(BOOT_LOADER_ASM_FILES)
 ### DEPENDENCY SECTION ###
 ##########################
 
+###############
+## IMPORTANT ############################
+# this step is not needed at the moment #
+#########################################
+
 # make dependencies
 # needs to be run just once
 # targets debian/mint/alike.
