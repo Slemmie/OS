@@ -33,3 +33,12 @@ These packages are common, and should also exist in other mainstream package man
 For now, there is not really an established conduct, however;
 - No use of C-stl or 3rd-party libraries
 - Everything written in assembly or C (aside from linker scripts and makefiles)
+
+# TODO
+- kmalloc function (allocate memory smaller than page size inside kernel)
+- vmalloc function (allocate page-aligned memory inside kernel)
+- kerboard input
+- timer utility (sleep, wake-up every x jiffies callbacks, convert kernel to infinite loop launching the callbacks)
+- multi threading support
+- file system
+- shell-like something something?
