@@ -8,6 +8,8 @@
 #ifdef VIDMEM_SIMPLIFIED_API
 
 #define set_cursor         vidmem_set_cursor
+#define cursor_row         vidmem_cursor_row
+#define cursor_col         vidmem_cursor_col
 #define clear_screen       vidmem_clear_screen
 #define clear_screen_color vidmem_clear_screen_color
 
@@ -15,6 +17,12 @@
 
 // set cursor position
 void vidmem_set_cursor(uint_8 row, uint_8 col);
+
+// get cursor position
+// row
+uint_8 vidmem_cursor_row();
+// col
+uint_8 vidmem_cursor_col();
 
 // clear the screen
 void vidmem_clear_screen();
