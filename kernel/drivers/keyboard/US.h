@@ -295,9 +295,6 @@ const char _us_kb_2_127[] = {
 	'\0'  // 127, US_KB_KEY_PRESS_COMPOSE
 };
 
-char us_kb_char(int keycode) {
-	if (keycode <= 127) {
-		return _us_kb_2_127[keycode];
-	}
-	return '\0';
+char us_kb_char(US_KB keycode) {
+	return keycode < 128 ? _us_kb_2_127[keycode] : '\0';
 }
