@@ -177,11 +177,126 @@ const char _us_kb_2_127[] = {
 	 '8', //   9, US_KB_KEY_PRESS_8
 	 '9', //  10, US_KB_KEY_PRESS_9
 	 '0', //  11, US_KB_KEY_PRESS_0
-.......................................................................:::::::::XD
+	 '-', //  12, US_KB_KEY_PRESS_MINUS
+	'\0', //  13, US_KB_KEY_PRESS_EQUAL
+	'\0', //  14, US_KB_KEY_PRESS_BACKSPACE
+	'\t', //  15, US_KB_KEY_PRESS_TAB
+	 'q', //  16, US_KB_KEY_PRESS_Q
+	 'w', //  17, US_KB_KEY_PRESS_W
+	 'e', //  18, US_KB_KEY_PRESS_E
+	 'r', //  19, US_KB_KEY_PRESS_R
+	 't', //  20, US_KB_KEY_PRESS_T
+	 'y', //  21, US_KB_KEY_PRESS_Y
+	 'u', //  22, US_KB_KEY_PRESS_U
+	 'i', //  23, US_KB_KEY_PRESS_I
+	 'o', //  24, US_KB_KEY_PRESS_O
+	 'p', //  25, US_KB_KEY_PRESS_P
+	 '[', //  26, US_KB_KEY_PRESS_LEFT_SQ_BRACKET
+	 ']', //  27, US_KB_KEY_PRESS_RIGHT_SQ_BRACKET
+	'\n', //  28, US_KB_KEY_PRESS_ENTER
+	'\0', //  29, US_KB_KEY_PRESS_LEFT_CTRL
+	 'a', //  30, US_KB_KEY_PRESS_A
+	 's', //  31, US_KB_KEY_PRESS_S
+	 'd', //  32, US_KB_KEY_PRESS_D
+	 'f', //  33, US_KB_KEY_PRESS_F
+	 'g', //  34, US_KB_KEY_PRESS_G
+	 'h', //  35, US_KB_KEY_PRESS_H
+	 'j', //  36, US_KB_KEY_PRESS_J
+	 'k', //  37, US_KB_KEY_PRESS_K
+	 'l', //  38, US_KB_KEY_PRESS_L
+	 ';', //  39, US_KB_KEY_PRESS_SEMI_COLON
+	'\'', //  40, US_KB_KEY_PRESS_APOSTROPHE
+	 '`', //  41, US_KB_KEY_PRESS_GRAVE
+	'\0', //  42, US_KB_KEY_PRESS_LEFT_SHIFT
+	'\\', //  43, US_KB_KEY_PRESS_BACK_SLASH
+	 'z', //  44, US_KB_KEY_PRESS_Z
+	 'x', //  45, US_KB_KEY_PRESS_X
+	 'c', //  46, US_KB_KEY_PRESS_C
+	 'v', //  47, US_KB_KEY_PRESS_V
+	 'b', //  48, US_KB_KEY_PRESS_B
+	 'n', //  49, US_KB_KEY_PRESS_N
+	 'm', //  50, US_KB_KEY_PRESS_M
+	 ',', //  51, US_KB_KEY_PRESS_COMMA
+	 '.', //  52, US_KB_KEY_PRESS_DOT
+	 '/', //  53, US_KB_KEY_PRESS_SLASH
+	'\0', //  54, US_KB_KEY_PRESS_RIGHT_SHIFT
+	 '*', //  55, US_KB_KEY_PRESS_KP_ASTERISK
+	'\0', //  56, US_KB_KEY_PRESS_LEFT_ALT
+	 ' ', //  57, US_KB_KEY_PRESS_SPACE
+	'\0', //  58, US_KB_KEY_PRESS_CAPS_LOCK
+	'\0', //  59, US_KB_KEY_PRESS_F1
+	'\0', //  60, US_KB_KEY_PRESS_F2
+	'\0', //  61, US_KB_KEY_PRESS_F3
+	'\0', //  62, US_KB_KEY_PRESS_F4
+	'\0', //  63, US_KB_KEY_PRESS_F5
+	'\0', //  64, US_KB_KEY_PRESS_F6
+	'\0', //  65, US_KB_KEY_PRESS_F7
+	'\0', //  66, US_KB_KEY_PRESS_F8
+	'\0', //  67, US_KB_KEY_PRESS_F9
+	'\0', //  68, US_KB_KEY_PRESS_F10
+	'\0', //  69, US_KB_KEY_PRESS_NUM_LOCK
+	'\0', //  70, US_KB_KEY_PRESS_SCROLL_LOCK
+	 '7', //  71, US_KB_KEY_PRESS_KP_7
+	 '8', //  72, US_KB_KEY_PRESS_KP_8
+	 '9', //  73, US_KB_KEY_PRESS_KP_9
+	 '-', //  74, US_KB_KEY_PRESS_KP_MINUS
+	 '4', //  75, US_KB_KEY_PRESS_KP_4
+	 '5', //  76, US_KB_KEY_PRESS_KP_5
+	 '6', //  77, US_KB_KEY_PRESS_KP_6
+	 '+', //  78, US_KB_KEY_PRESS_KP_PLUS
+	 '1', //  79, US_KB_KEY_PRESS_KP_1
+	 '2', //  80, US_KB_KEY_PRESS_KP_2
+	 '3', //  81, US_KB_KEY_PRESS_KP_3
+	 '0', //  82, US_KB_KEY_PRESS_KP_0
+	 '.', //  83, US_KB_KEY_PRESS_KP_DOT
+	'\0', //  84, US_KB_KEY_UNKNOWN_SCANCODE_84
+	'\0', //  85, US_KB_KEY_PRESS_ZENKAKU_HANKAKU
+	 '<', //  86, US_KB_KEY_PRESS_102ND
+	'\0', //  87, US_KB_KEY_PRESS_F11
+	'\0', //  88, US_KB_KEY_PRESS_F12
+	'\0', //  89, US_KB_KEY_PRESS_RO
+	'\0', //  90, US_KB_KEY_PRESS_KATAKANA
+	'\0', //  91, US_KB_KEY_PRESS_HIRAGANA
+	'\0', //  92, US_KB_KEY_PRESS_HENKAN
+	'\0', //  93, US_KB_KEY_PRESS_KATAKANA_HIRAGANA
+	'\0', //  94, US_KB_KEY_PRESS_MUHENKAN
+	'\0', //  95, US_KB_KEY_PRESS_KP_JP_COMMA
+	'\n', //  96, US_KB_KEY_PRESS_KP_ENTER
+	'\0', //  97, US_KB_KEY_PRESS_KP_RIGHT_CTRL
+	 '/', //  98, US_KB_KEY_PRESS_KP_SLASH
+	'\0', //  99, US_KB_KEY_PRESS_SYSRQ
+	'\0', // 100, US_KB_KEY_PRESS_RIGHT_ALT
+	'\0', // 101, US_KB_KEY_PRESS_LINE_FEED
+	'\0', // 102, US_KB_KEY_PRESS_HOME
+	'\0', // 103, US_KB_KEY_PRESS_UP
+	'\0', // 104, US_KB_KEY_PRESS_PAGE_UP
+	'\0', // 105, US_KB_KEY_PRESS_LEFT
+	'\0', // 106, US_KB_KEY_PRESS_RIGHT
+	'\0', // 107, US_KB_KEY_PRESS_END
+	'\0', // 108, US_KB_KEY_PRESS_DOWN
+	'\0', // 109, US_KB_KEY_PRESS_PAGE_DOWN
+	'\0', // 110, US_KB_KEY_PRESS_INSERT
+	'\0', // 111, US_KB_KEY_PRESS_DELETE
+	'\0', // 112, US_KB_KEY_PRESS_MACRO
+	'\0', // 113, US_KB_KEY_PRESS_MUTE
+	'\0', // 114, US_KB_KEY_PRESS_VOLUME_DOWN
+	'\0', // 115, US_KB_KEY_PRESS_VOLUME_UP
+	'\0', // 116, US_KB_KEY_PRESS_POWER
+	 '=', // 117, US_KB_KEY_PRESS_KP_EQUAL
+	 '-', // 118, US_KB_KEY_PRESS_KP_PLUS_MINUS
+	'\0', // 119, US_KB_KEY_PRESS_PAUSE
+	'\0', // 120, US_KB_KEY_PRESS_SCALE
+	 ',', // 121, US_KB_KEY_PRESS_KP_COMMA
+	'\0', // 122, US_KB_KEY_PRESS_HAGEUL | US_KB_KEY_PRESS_HAGUEL
+	'\0', // 123, US_KB_KEY_PRESS_HANJA
+	'\0', // 124, US_KB_KEY_PRESS_YEN
+	'\0', // 125, US_KB_KEY_PRESS_LEFT_META
+	'\0', // 126, US_KB_KEY_PRESS_RIGHT_META
+	'\0'  // 127, US_KB_KEY_PRESS_COMPOSE
 };
 
-char us_kb_char(US_KB keycode) {
-	if (key_code <= 127) {
+char us_kb_char(int keycode) {
+	if (keycode <= 127) {
 		return _us_kb_2_127[keycode];
 	}
 	return '\0';

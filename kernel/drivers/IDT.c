@@ -29,31 +29,15 @@ void initialize_IDT() {
 	load_IDT();
 }
 
-#include "keyboard/scan_codes.h"
+#include "keyboard/US.h"
 
 extern void _isr1_handler() {
 	// print keyboard input on interrupt
 	// abstract out later
 	uint_8 key = port_byte_in(0x60);
 	
-	char* cha = "\0\0\0\0\0\0\0\0";
-	
-	switch (key) {
-		case KEY_PRESS_ESCAPE: cha = "ESC"; break;
-		
-		case KEY_PRESS_1: cha = "1"; break;
-		case KEY_PRESS_2: cha = "2"; break;
-		case KEY_PRESS_3: cha = "3"; break;
-		case KEY_PRESS_4: cha = "4"; break;
-		case KEY_PRESS_5: cha = "5"; break;
-		case KEY_PRESS_6: cha = "6"; break;
-		case KEY_PRESS_7: cha = "7"; break;
-		case KEY_PRESS_8: cha = "8"; break;
-		case KEY_PRESS_9: cha = "9"; break;
-		case KEY_PRESS_0: cha = "0"; break;
-	};
-	
-	vidmem_puts(cha);
+	char cha = us_kb_char(key);
+	if(cha != '\0')	vidmem_putchar(cha);
 	
 	port_byte_out(0x20, 0x20);
 	port_byte_out(0xa0, 0x20);
