@@ -188,6 +188,7 @@ void vidmem_clear_screen_color(uint_8 color) {
 
 // put a char then advance cursor
 void vidmem_putchar(uint_8 data) {
+	// new line
 	if (data == '\n') {
 		uint_8 col = 0;
 		uint_8 row = vidmem_cursor_row() + 1;
@@ -198,6 +199,13 @@ void vidmem_putchar(uint_8 data) {
 		vidmem_set_cursor(row, col);
 		return;
 	}
+	// tab
+	if (data == '\t') {
+		for (uint_8 i = 0; i < 4; i++) {
+			vidmem_putchar(' ');
+		}
+		return;
+	}
 	
 	_VIDMEM_ADDRESS[_vidmem_get_cursor() << 1] = data;
 	
@@ -206,6 +214,7 @@ void vidmem_putchar(uint_8 data) {
 
 // put a char with color then advance cursor
 void vidmem_putchar_color(uint_8 data, uint_8 color) {
+	// new line
 	if (data == '\n') {
 		uint_8 col = 0;
 		uint_8 row = vidmem_cursor_row() + 1;
@@ -214,6 +223,13 @@ void vidmem_putchar_color(uint_8 data, uint_8 color) {
 			row--;
 		}
 		vidmem_set_cursor(row, col);
+		return;
+	}
+	// tab
+	if (data == '\t') {
+		for (uint_8 i = 0; i < 4; i++) {
+			vidmem_putchar(' ');
+		}
 		return;
 	}
 	
