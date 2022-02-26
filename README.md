@@ -37,8 +37,8 @@ For now, there is not really an established conduct, however;
 # TODO
 - kmalloc function (allocate memory smaller than page size inside kernel)
 - vmalloc function (allocate page-aligned memory inside kernel)
-- kerboard input
 - timer utility (sleep, wake-up every x jiffies callbacks, convert kernel to infinite loop launching the callbacks)
 - multi threading support
 - file system
 - shell-like something something?
+- event dispatch system (callbacks)
