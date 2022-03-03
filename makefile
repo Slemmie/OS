@@ -124,19 +124,5 @@ make deps:
 # cleans up temporary files
 .PHONY: clean
 clean:
-	rm -rf $(ROOT_PATH)/boot_loader/*.o
-	rm -rf $(ROOT_PATH)/boot_loader/*.bin
-	rm -rf $(ROOT_PATH)/boot_loader/util/*.o
-	rm -rf $(ROOT_PATH)/boot_loader/util/*.bin
-	rm -rf $(ROOT_PATH)/kernel/*.o
-	rm -rf $(ROOT_PATH)/kernel/*.bin
-	rm -rf $(ROOT_PATH)/kernel/util/*.o
-	rm -rf $(ROOT_PATH)/kernel/util/*.bin
-	rm -rf $(ROOT_PATH)/kernel/vidmem/*.o
-	rm -rf $(ROOT_PATH)/kernel/vidmem/*.bin
-	rm -rf $(ROOT_PATH)/kernel/drivers/*.o
-	rm -rf $(ROOT_PATH)/kernel/drivers/*.bin
-	rm -rf $(ROOT_PATH)/kernel/drivers/keyboard/*.o
-	rm -rf $(ROOT_PATH)/kernel/drivers/keyboard/*.bin
-	rm -rf $(ROOT_PATH)/*.o
-	rm -rf $(ROOT_PATH)/*.bin
+	find . -name *.o -delete
+	find . -name *.bin -delete
