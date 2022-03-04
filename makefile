@@ -2,11 +2,8 @@
 # [to build (not run)]: $ make
 # [to build, then run]: $ make run
 
-# full path to here...
-ROOT_PATH = $(shell dirname $(realpath $(firstword $(MAKEFILE_LIST))))
-
 # os-image full name
-OS_IMAGE = $(ROOT_PATH)/os-image
+OS_IMAGE = ./os-image
 
 # main target
 all: $(OS_IMAGE)
@@ -17,7 +14,7 @@ run: all
 	qemu-system-x86_64 $(OS_IMAGE)
 
 # os-image target
-$(OS_IMAGE): $(ROOT_PATH)/boot_loader/boot_loader.bin $(ROOT_PATH)/kernel/kernel.bin
+$(OS_IMAGE): ./boot_loader/boot_loader.bin ./kernel/kernel.bin
 	cat $^ > os-image
 
 ###########################
@@ -25,32 +22,32 @@ $(OS_IMAGE): $(ROOT_PATH)/boot_loader/boot_loader.bin $(ROOT_PATH)/kernel/kernel
 ###########################
 
 # list of boot loader asm files
-BOOT_LOADER_ASM_FILES =                         \
-$(wildcard $(ROOT_PATH)/boot_loader/*.asm)      \
-$(wildcard $(ROOT_PATH)/boot_loader/util/*.asm) \
+BOOT_LOADER_ASM_FILES =              \
+$(wildcard ./boot_loader/*.asm)      \
+$(wildcard ./boot_loader/util/*.asm) \
 
 # boot loader binary
-$(ROOT_PATH)/boot_loader/boot_loader.bin: $(BOOT_LOADER_ASM_FILES)
-	cd $(ROOT_PATH)/boot_loader/ && nasm -f bin boot_loader.asm -o $@
+./boot_loader/boot_loader.bin: $(BOOT_LOADER_ASM_FILES)
+	cd ./boot_loader/ && nasm -f bin boot_loader.asm -o $@
 
 ######################
 ### KERNEL SECTION ###
 ######################
 
 # C SOURCE FILES
-C_SOURCE_FILES =                                     \
-$(wildcard $(ROOT_PATH)/kernel/*.c)                  \
-$(wildcard $(ROOT_PATH)/kernel/util/*.c)             \
-$(wildcard $(ROOT_PATH)/kernel/vidmem/*.c)           \
-$(wildcard $(ROOT_PATH)/kernel/drivers/*.c)          \
-$(wildcard $(ROOT_PATH)/kernel/drivers/keyboard/*.c)
+C_SOURCE_FILES =                          \
+$(wildcard ./kernel/*.c)                  \
+$(wildcard ./kernel/util/*.c)             \
+$(wildcard ./kernel/vidmem/*.c)           \
+$(wildcard ./kernel/drivers/*.c)          \
+$(wildcard ./kernel/drivers/keyboard/*.c)
 # C HEADER FILES
-C_HEADER_FILES =                                     \
-$(wildcard $(ROOT_PATH)/kernel/*.h)                  \
-$(wildcard $(ROOT_PATH)/kernel/util/*.h)             \
-$(wildcard $(ROOT_PATH)/kernel/vidmem/*.h)           \
-$(wildcard $(ROOT_PATH)/kernel/drivers/*.h)          \
-$(wildcard $(ROOT_PATH)/kernel/drivers/keyboard/*.h)
+C_HEADER_FILES =                          \
+$(wildcard ./kernel/*.h)                  \
+$(wildcard ./kernel/util/*.h)             \
+$(wildcard ./kernel/vidmem/*.h)           \
+$(wildcard ./kernel/drivers/*.h)          \
+$(wildcard ./kernel/drivers/keyboard/*.h)
 # C OBJECT FILES
 C_OBJECT_FILES = ${C_SOURCE_FILES:.c=.o}
 
@@ -69,7 +66,7 @@ $(ROOT_PATH)/kernel/kernel.bin: $(ROOT_PATH)/boot_loader/extended_program.o ${C_
 
 # boot loader: extended program object file
 $(ROOT_PATH)/boot_loader/extended_program.o: $(BOOT_LOADER_ASM_FILES)
-	cd $(ROOT_PATH)/boot_loader/ && nasm -f elf64 extended_program.asm -o $@
+	cd ./boot_loader/ && nasm -f elf64 extended_program.asm -o $@
 
 ##########################
 ### DEPENDENCY SECTION ###
