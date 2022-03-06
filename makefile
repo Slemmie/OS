@@ -28,7 +28,8 @@ $(wildcard ./boot_loader/util/*.asm) \
 
 # boot loader binary
 ./boot_loader/boot_loader.bin: $(BOOT_LOADER_ASM_FILES)
-	cd ./boot_loader/ && nasm -f bin boot_loader.asm -o $@
+	cd ./boot_loader/ && nasm -f bin boot_loader.asm -o ../$@
+#	cd ./boot_loader/ && nasm -f bin boot_loader.asm -o boot_loader.bin
 
 ######################
 ### KERNEL SECTION ###
@@ -60,13 +61,13 @@ KERNEL_LINKER = link.ld
 #	/usr/local/x86_64elfgcc/bin/x86_64-elf-gcc -Ttext 0x8000 -ffreestanding -mno-red-zone -m64 -c $< -o $@
 
 # linking
-$(ROOT_PATH)/kernel/kernel.bin: $(ROOT_PATH)/boot_loader/extended_program.o ${C_OBJECT_FILES}
+kernel/kernel.bin: boot_loader/extended_program.o ${C_OBJECT_FILES}
 	ld -T"$(KERNEL_LINKER)" -nostdlib
 #	/usr/local/x86_64elfgcc/bin/x86_64-elf-ld -T"$(KERNEL_LINKER)"
 
 # boot loader: extended program object file
-$(ROOT_PATH)/boot_loader/extended_program.o: $(BOOT_LOADER_ASM_FILES)
-	cd ./boot_loader/ && nasm -f elf64 extended_program.asm -o $@
+boot_loader/extended_program.o: $(BOOT_LOADER_ASM_FILES)
+	cd ./boot_loader/ && nasm -f elf64 extended_program.asm -o ../$@
 
 ##########################
 ### DEPENDENCY SECTION ###
